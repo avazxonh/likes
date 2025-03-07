@@ -4,28 +4,28 @@ console.log(gallerey);
 
 const changeState = (state, action) => {
   const { type, payload } = action;
+  switch (type) {
+    case "ADD_LIKE":
+      return state.map((image) => {
+        if (image.id == payload) {
+          return { ...image, likes: image.likes + 1 };
+        } else {
+          return image;
+        }
+      });
+    case "ADD_DISLIKE":
+      return state.map((image) => {
+        if (image.id == payload) {
+          return { ...image, disLikes: image.disLikes + 1 };
+        } else {
+          return image;
+        }
+      });
+    case "DELETE":
+      return state.filter((image) => image.id != payload);
 
-  if (type == "ADD_LIKE") {
-    return state.map((image) => {
-      if (image.id == payload) {
-        return { ...image, likes: image.likes + 1 };
-      } else {
-        return image;
-      }
-    });
-  } else if (type == "ADD_DISLIKE") {
-    return state.map((image) => {
-      if (image.id == payload) {
-        return { ...image, disLikes: image.disLikes + 1 };
-      } else {
-        return image;
-      }
-    });
-  }
-  if (type == "DELETE") {
-    return state.filter((image) => image.id != payload);
-  } else {
-    return state;
+    default:
+      return state;
   }
 };
 
